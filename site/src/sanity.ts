@@ -100,6 +100,17 @@ export type ActiveOffer = {
   productIds: string[]
 }
 
+export type Collection = {
+  _id: string
+  name: string
+  nameSi?: string
+  slug: string
+  description?: string
+  descriptionSi?: string
+  products?: Product[]
+  order?: number
+}
+
 const productProjection = `
   _id, name, nameSi, code, price, images, inStock,
   category->{_id, name, nameSi},
@@ -129,6 +140,22 @@ export async function getCategories(): Promise<Taxonomy[]> {
 export async function getProductTypes(): Promise<Taxonomy[]> {
   return client.fetch(
     `*[_type == "productType"] | order(order asc, name asc){_id, name, nameSi}`,
+  )
+}
+
+export async function getCollections(): Promise<Collection[]> {
+  return client.fetch(
+    `*[_type == "collection"] | order(order asc, name asc){_id, name, nameSi, slug, description, descriptionSi, order}`,
+  )
+}
+
+export async function getCollectionBySlug(slug: string): Promise<Collection | null> {
+  return client.fetch(
+    `*[_type == "collection" && lower(slug) == lower($slug)][0]{
+      _id, name, nameSi, slug, description, descriptionSi, order,
+      "products": products[]->{${productProjection}}
+    }`,
+    {slug},
   )
 }
 

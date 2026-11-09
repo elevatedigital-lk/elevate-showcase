@@ -181,6 +181,13 @@ export default defineType({
       type: 'number',
       description: 'Lower numbers show first. Optional.',
     }),
+    defineField({
+      name: 'collections',
+      title: 'Collections',
+      type: 'array',
+      description: 'Optional. Add this product to one or more collections.',
+      of: [{type: 'reference', to: [{type: 'collection'}]}],
+    }),
   ],
   preview: {
     select: {

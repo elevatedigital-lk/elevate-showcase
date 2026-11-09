@@ -67,6 +67,8 @@ export type Dict = {
   msrp: string
   offerPrice: string
   pageLabel: (page: number, total: number) => string
+  collections: string
+  backToCollections: string
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -136,6 +138,8 @@ export const dict: Record<Lang, Dict> = {
     msrp: 'MSRP',
     offerPrice: 'Offer price',
     pageLabel: (page, total) => `Page ${page} of ${total}`,
+    collections: 'Collections',
+    backToCollections: '← Back to collections',
   },
   si: {
     siteTitle: 'Beto',
@@ -203,5 +207,7 @@ export const dict: Record<Lang, Dict> = {
     msrp: 'සාමාන්‍ය මිල',
     offerPrice: 'දීමනා මිල',
     pageLabel: (page, total) => `පිටුව ${page} / ${total}`,
+    collections: 'එකතුවන්',
+    backToCollections: '← එකතු වලට',
   },
 }
